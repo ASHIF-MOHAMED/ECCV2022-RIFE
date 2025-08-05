@@ -50,12 +50,20 @@ model.device()
 if args.img[0].endswith('.exr') and args.img[1].endswith('.exr'):
     img0 = cv2.imread(args.img[0], cv2.IMREAD_COLOR | cv2.IMREAD_ANYDEPTH)
     img1 = cv2.imread(args.img[1], cv2.IMREAD_COLOR | cv2.IMREAD_ANYDEPTH)
+    if img0 is None:
+        raise FileNotFoundError(f"Image {args.img[0]} could not be loaded. Check the file path or file integrity.")
+    if img1 is None:
+        raise FileNotFoundError(f"Image {args.img[1]} could not be loaded. Check the file path or file integrity.")
     img0 = (torch.tensor(img0.transpose(2, 0, 1)).to(device)).unsqueeze(0)
     img1 = (torch.tensor(img1.transpose(2, 0, 1)).to(device)).unsqueeze(0)
 
 else:
     img0 = cv2.imread(args.img[0], cv2.IMREAD_UNCHANGED)
     img1 = cv2.imread(args.img[1], cv2.IMREAD_UNCHANGED)
+    if img0 is None:
+        raise FileNotFoundError(f"Image {args.img[0]} could not be loaded. Check the file path or file integrity.")
+    if img1 is None:
+        raise FileNotFoundError(f"Image {args.img[1]} could not be loaded. Check the file path or file integrity.")
     img0 = (torch.tensor(img0.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
     img1 = (torch.tensor(img1.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
 

@@ -9,6 +9,11 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from model.oldmodel.IFNet_HD import *
 import torch.nn.functional as F
 from model.loss import *
+from model.oldmodel.RIFE_HDv2 import Model
+#from model.oldmodel.RIFE_HDv3 import Model
+from model.oldmodel.RIFE_HD import Model
+
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
